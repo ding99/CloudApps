@@ -1,0 +1,16 @@
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.exe
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.deps.json
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.runtimeconfig.json
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.runtimeconfig.dev.json
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.dll
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\ref\S3Skills.dll
+D:\ProG\CloudApps\AWS\S3Skills\bin\Debug\net5.0\S3Skills.pdb
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.csprojAssemblyReference.cache
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.GeneratedMSBuildEditorConfig.editorconfig
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.AssemblyInfoInputs.cache
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.AssemblyInfo.cs
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.csproj.CoreCompileInputs.cache
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.dll
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\ref\S3Skills.dll
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.pdb
+D:\ProG\CloudApps\AWS\S3Skills\obj\Debug\net5.0\S3Skills.genruntimeconfig.cache

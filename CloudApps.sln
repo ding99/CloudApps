@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExamineCloud", "ExamineCloud\ExamineCloud.csproj", "{EDFE7F5B-1665-4ED9-8E20-2CC66D2303EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AWS", "AWS", "{F3988DEF-148A-4EC8-8FBA-576AFA401A4A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{11A261D5-653A-4D85-8E8B-7AFC5A77A0A1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GCP", "GCP", "{01CBAA57-945C-41B0-B554-513F9563B973}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Skills", "AWS\S3Skills\S3Skills.csproj", "{F807BDD6-4487-43D0-A0B8-6B7860866656}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDFE7F5B-1665-4ED9-8E20-2CC66D2303EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDFE7F5B-1665-4ED9-8E20-2CC66D2303EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDFE7F5B-1665-4ED9-8E20-2CC66D2303EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDFE7F5B-1665-4ED9-8E20-2CC66D2303EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F807BDD6-4487-43D0-A0B8-6B7860866656}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F807BDD6-4487-43D0-A0B8-6B7860866656}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F807BDD6-4487-43D0-A0B8-6B7860866656}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F807BDD6-4487-43D0-A0B8-6B7860866656}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F807BDD6-4487-43D0-A0B8-6B7860866656} = {F3988DEF-148A-4EC8-8FBA-576AFA401A4A}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C339C302-23C5-4763-ACAB-B6AC3398E52A}
+	EndGlobalSection
+EndGlobal
