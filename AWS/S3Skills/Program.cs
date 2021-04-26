@@ -3,7 +3,7 @@
 namespace S3Skills {
 	class Program {
 		static void Main(string[] args) {
-			Console.WriteLine("Hello AWS S3!");
+			Console.WriteLine("Cloud Application -> AWS S3!");
 		}
 	}
 }
