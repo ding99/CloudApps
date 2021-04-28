@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "S3Skills": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "AWS_REGION": "us-east-2",
+        "AWS_PROFILE": "tutorials"
+      }
+    }
+  }
+}
