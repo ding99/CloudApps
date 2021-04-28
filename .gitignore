@@ -363,3 +363,7 @@ FodyWeavers.xsd
 
 #self
 *.exe
+
+bin
+obj
+\.vs
