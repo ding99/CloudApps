@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace S3Skills {
 	class Program {
-		static void Main(string[] args) {
+		static async Task Main(string[] args) {
 			Console.WriteLine("Cloud Application -> AWS S3!");
 
-			new Accesser().Start();
+			await new Accesser().Start();
 		}
 	}
 }
