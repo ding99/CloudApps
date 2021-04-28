@@ -8,9 +8,11 @@ namespace S3Skills {
 			Console.WriteLine("Examining S3 ...");
 
 			await GetList();
+			Console.ResetColor();
 		}
 
 		private async Task GetList() {
+			Console.ForegroundColor = ConsoleColor.Yellow;
 			Console.WriteLine("-- GetList");
 
 			var s3 = new AmazonS3Client();
