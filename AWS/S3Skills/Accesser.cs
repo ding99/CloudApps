@@ -25,7 +25,7 @@ namespace S3Skills {
 
 				foreach (var a in listResponse.Buckets) {
 					Console.ForegroundColor = ConsoleColor.Yellow;
-					Console.WriteLine($"  Bucket Name: [{a.BucketName}] {"\t"} Creation Date: [{a.CreationDate}]");
+					Console.WriteLine($"  Bucket Name: [{a.BucketName}], {"\t"} Creation Date: [{a.CreationDate}]");
 
 					Console.ForegroundColor = ConsoleColor.Cyan;
 					ListObjectsRequest request = new ListObjectsRequest { BucketName = a.BucketName };
@@ -37,6 +37,8 @@ namespace S3Skills {
 			catch(Exception e) {
 				Console.WriteLine($"Error in list bucket/files: {e.Message}");
 			}
+
+			Console.ForegroundColor = ConsoleColor.Yellow;
 		}
 	}
 }
