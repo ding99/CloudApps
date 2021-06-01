@@ -1,4 +1,5 @@
 ﻿using Amazon.S3;
+using Amazon.S3.Model;
 using System;
 using System.Threading.Tasks;
 
@@ -18,9 +19,20 @@ namespace S3Skills {
 			var s3 = new AmazonS3Client();
 
 			var listResponse = await s3.ListBucketsAsync();
-			Console.WriteLine($"There are ({listResponse.Buckets.Count}) buckets totally.");
-			foreach(var a in listResponse.Buckets)
-				Console.WriteLine($"  Name:{a.BucketName} / Date:{a.CreationDate}");
+			Console.WriteLine($"There are ({listResponse.Buckets.Count}) bucket{(listResponse.Buckets.Count < 2 ? "" : "s")} totally.");
+
+			try {
+				foreach (var a in listResponse.Buckets) {
+					Console.WriteLine($"  Bucket Name: [{a.BucketName}] {"\t"} Creation Date: [{a.CreationDate}]");
+
+					ListObjectsRequest request = new ListObjectsRequest();
+					request.BucketName = a.BucketName;
+					request.Prefix = ".";
+				}
+			}
+			catch(Exception e) {
+				Console.WriteLine($"Error in list bucket/files: {e.Message}");
+			}
 		}
 	}
 }
