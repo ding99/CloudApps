@@ -368,3 +368,5 @@ bin
 obj
 \.vs
 .vs
+
+AWS\S3Skills\obj
