@@ -22,7 +22,7 @@ namespace S3Skills {
 
 			await DisplayObjects(s3, "Original");
 
-			string sub = @"newsub01/", dataPath = @"\Data\", file = @"subtitleAddSub.scc";
+			string sub = @"newsub01/", dataPath = @"\Data\", fileName = @"subtitleAddSub.scc";
 
 			S3Bucket bucket = await FirstBucket(s3);
 			if (bucket != null) {
@@ -45,11 +45,46 @@ namespace S3Skills {
 
 			await DisplayObjects(s3, "Second");
 
-			string basic = AppDomain.CurrentDomain.BaseDirectory;
-			int index = basic.IndexOf("\\AWS");
-			StringBuilder builder = new StringBuilder(basic.Substring(0, index));
-			builder.Append(dataPath).Append(file);
-			Console.WriteLine($"{dataPath}, {file}, {builder.ToString()}");
+			Console.ForegroundColor = ConsoleColor.Yellow;
+			Console.WriteLine("-- Examine S3 Low-Level APIs");
+
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+
+				string basic = AppDomain.CurrentDomain.BaseDirectory;
+				int index = basic.IndexOf("\\AWS");
+				StringBuilder builder = new StringBuilder(basic.Substring(0, index));
+				builder.Append(dataPath).Append(fileName);
+				Console.WriteLine($"{dataPath}, {fileName}, {builder}");
+
+				Console.WriteLine($"The first bucket is [{bucket.BucketName}]");
+				Console.WriteLine($"-- Copy file [{builder}] to [{sub + fileName}]");
+
+				FileInfo file = new FileInfo(builder.ToString());
+
+				PutObjectRequest put = new PutObjectRequest {
+					InputStream = file.OpenRead(),
+					BucketName = bucket.BucketName,
+					Key = sub + fileName
+				};
+
+				try {
+					PutObjectResponse resp = await s3.PutObjectAsync(put);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during copying a file: {e.Message}");
+				}
+			}
+
+			await DisplayObjects(s3, "File Copied");
+
+			//bucket = await FirstBucket(s3);
+			//await DisplayObjects(s3, "File Copied");
+
+
+			//bucket = await FirstBucket(s3);
+			//await DisplayObjects(s3, "File Deleted");
 		}
 
 		private async Task<S3Bucket> FirstBucket(AmazonS3Client s3) {
