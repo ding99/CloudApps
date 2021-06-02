@@ -9,7 +9,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Azure", "Azure", "{11A261D5
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GCP", "GCP", "{01CBAA57-945C-41B0-B554-513F9563B973}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "S3Skills", "AWS\S3Skills\S3Skills.csproj", "{F807BDD6-4487-43D0-A0B8-6B7860866656}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "S3Skills", "AWS\S3Skills\S3Skills.csproj", "{F807BDD6-4487-43D0-A0B8-6B7860866656}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{12F7644B-FC75-4DBB-A74A-34455937D412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
