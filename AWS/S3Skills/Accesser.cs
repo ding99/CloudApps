@@ -27,7 +27,7 @@ namespace S3Skills {
 			S3Bucket bucket = await FirstBucket(s3);
 			if (bucket != null) {
 				Console.ForegroundColor = ConsoleColor.DarkYellow;
-				Console.WriteLine($"-- Create a sub-directory [{sub}]");
+				Console.WriteLine($"-- Create a folder [{sub}]");
 
 				Console.WriteLine($"The first bucket is [{bucket.BucketName}]");
 				PutObjectRequest put = new PutObjectRequest {
@@ -42,26 +42,18 @@ namespace S3Skills {
 					Console.WriteLine($"Error during creating a subfolder: {e.Message}");
 				}
 			}
-
-			await DisplayObjects(s3, "Second");
-
-			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("-- Examine S3 Low-Level APIs");
+			await DisplayObjects(s3, "Folder Created");
 
 			bucket = await FirstBucket(s3);
 			if (bucket != null) {
-				Console.ForegroundColor = ConsoleColor.DarkYellow;
-
 				string basic = AppDomain.CurrentDomain.BaseDirectory;
 				int index = basic.IndexOf("\\AWS");
 				StringBuilder builder = new StringBuilder(basic.Substring(0, index));
 				builder.Append(dataPath).Append(fileName);
-				Console.WriteLine($"{dataPath}, {fileName}, {builder}");
-
-				Console.WriteLine($"The first bucket is [{bucket.BucketName}]");
-				Console.WriteLine($"-- Copy file [{builder}] to [{sub + fileName}]");
-
 				FileInfo file = new FileInfo(builder.ToString());
+
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Copy file [{builder}] to [{sub + fileName}]");
 
 				PutObjectRequest put = new PutObjectRequest {
 					InputStream = file.OpenRead(),
@@ -76,15 +68,45 @@ namespace S3Skills {
 					Console.WriteLine($"Error during copying a file: {e.Message}");
 				}
 			}
-
 			await DisplayObjects(s3, "File Copied");
 
-			//bucket = await FirstBucket(s3);
-			//await DisplayObjects(s3, "File Copied");
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Delete folder [{sub}]");
 
+				DeleteObjectRequest delete = new DeleteObjectRequest {
+					BucketName = bucket.BucketName,
+					Key = sub
+				};
 
-			//bucket = await FirstBucket(s3);
-			//await DisplayObjects(s3, "File Deleted");
+				try {
+					DeleteObjectResponse resp = await s3.DeleteObjectAsync(delete);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during deleting a folder: {e.Message}");
+				}
+			}
+			await DisplayObjects(s3, "Folder Deleted");
+
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Delete file [{sub + fileName}]");
+
+				DeleteObjectRequest delete = new DeleteObjectRequest {
+					BucketName = bucket.BucketName,
+					Key = sub + fileName
+				};
+
+				try {
+					DeleteObjectResponse resp = await s3.DeleteObjectAsync(delete);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during deleting a folder: {e.Message}");
+				}
+			}
+			await DisplayObjects(s3, "File Deleted");
 		}
 
 		private async Task<S3Bucket> FirstBucket(AmazonS3Client s3) {
