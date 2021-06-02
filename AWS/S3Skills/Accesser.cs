@@ -22,7 +22,7 @@ namespace S3Skills {
 
 			await DisplayObjects(s3, "Original");
 
-			string sub = @"newsub01/", dataPath = @"\Data\", fileName = @"subtitleAddSub.scc";
+			string sub = @"newsub01/", dataPath = @"\Data\", fileName = @"subtitleAddSub.srt";
 
 			S3Bucket bucket = await FirstBucket(s3);
 			if (bucket != null) {
