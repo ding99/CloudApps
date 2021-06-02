@@ -2,28 +2,29 @@
 using Amazon.S3.Model;
 using System;
 using System.Threading.Tasks;
+using System.IO;
+using System.Text;
 
 namespace S3Skills {
 	public class Accesser {
 		public async Task Start() {
 			Console.WriteLine("Examining S3 ...");
 
-			await ExamineS3();
+			await LowLevelAPI();
 			Console.ResetColor();
 		}
 
-		private async Task ExamineS3() {
+		private async Task LowLevelAPI() {
 			Console.ForegroundColor = ConsoleColor.Yellow;
-			Console.WriteLine("-- Examine S3");
+			Console.WriteLine("-- Examine S3 Low-Level APIs");
 
 			var s3 = new AmazonS3Client();
 
-			await ListObjects(s3, "Original");
+			await DisplayObjects(s3, "Original");
+
+			string sub = @"newsub01/", dataPath = @"\Data\", file = @"subtitleAddSub.scc";
 
 			S3Bucket bucket = await FirstBucket(s3);
-
-			//var listResponse = await s3.ListBucketsAsync();
-			string sub = @"newsub01/", file = @"addfile01.txt";
 			if (bucket != null) {
 				Console.ForegroundColor = ConsoleColor.DarkYellow;
 				Console.WriteLine($"-- Create a sub-directory [{sub}]");
@@ -42,7 +43,13 @@ namespace S3Skills {
 				}
 			}
 
-			await ListObjects(s3, "Second");
+			await DisplayObjects(s3, "Second");
+
+			string basic = AppDomain.CurrentDomain.BaseDirectory;
+			int index = basic.IndexOf("\\AWS");
+			StringBuilder builder = new StringBuilder(basic.Substring(0, index));
+			builder.Append(dataPath).Append(file);
+			Console.WriteLine($"{dataPath}, {file}, {builder.ToString()}");
 		}
 
 		private async Task<S3Bucket> FirstBucket(AmazonS3Client s3) {
@@ -50,7 +57,7 @@ namespace S3Skills {
 			return listResponse.Buckets.Count > 0 ? listResponse.Buckets[0] : null;
 		}
 
-		private async Task ListObjects(AmazonS3Client s3, string title) {
+		private async Task DisplayObjects(AmazonS3Client s3, string title) {
 			Console.ForegroundColor = ConsoleColor.Yellow;
 			var listResponse = await s3.ListBucketsAsync();
 			Console.WriteLine($"{title}: There are ({listResponse.Buckets.Count}) bucket{(listResponse.Buckets.Count < 2 ? "" : "s")} totally.");
