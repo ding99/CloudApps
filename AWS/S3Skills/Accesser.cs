@@ -22,12 +22,12 @@ namespace S3Skills {
 
 			await DisplayObjects(s3, "Original");
 
-			string sub = @"newsub01/", dataPath = @"\Data\", file = @"subtitleAddSub.scc";
+			string sub = @"newsub01/", dataPath = @"\Data\", fileName = @"subtitleAddSub.scc";
 
 			S3Bucket bucket = await FirstBucket(s3);
 			if (bucket != null) {
 				Console.ForegroundColor = ConsoleColor.DarkYellow;
-				Console.WriteLine($"-- Create a sub-directory [{sub}]");
+				Console.WriteLine($"-- Create a folder [{sub}]");
 
 				Console.WriteLine($"The first bucket is [{bucket.BucketName}]");
 				PutObjectRequest put = new PutObjectRequest {
@@ -42,14 +42,71 @@ namespace S3Skills {
 					Console.WriteLine($"Error during creating a subfolder: {e.Message}");
 				}
 			}
+			await DisplayObjects(s3, "Folder Created");
 
-			await DisplayObjects(s3, "Second");
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				string basic = AppDomain.CurrentDomain.BaseDirectory;
+				int index = basic.IndexOf("\\AWS");
+				StringBuilder builder = new StringBuilder(basic.Substring(0, index));
+				builder.Append(dataPath).Append(fileName);
+				FileInfo file = new FileInfo(builder.ToString());
 
-			string basic = AppDomain.CurrentDomain.BaseDirectory;
-			int index = basic.IndexOf("\\AWS");
-			StringBuilder builder = new StringBuilder(basic.Substring(0, index));
-			builder.Append(dataPath).Append(file);
-			Console.WriteLine($"{dataPath}, {file}, {builder.ToString()}");
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Copy file [{builder}] to [{sub + fileName}]");
+
+				PutObjectRequest put = new PutObjectRequest {
+					InputStream = file.OpenRead(),
+					BucketName = bucket.BucketName,
+					Key = sub + fileName
+				};
+
+				try {
+					PutObjectResponse resp = await s3.PutObjectAsync(put);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during copying a file: {e.Message}");
+				}
+			}
+			await DisplayObjects(s3, "File Copied");
+
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Delete folder [{sub}]");
+
+				DeleteObjectRequest delete = new DeleteObjectRequest {
+					BucketName = bucket.BucketName,
+					Key = sub
+				};
+
+				try {
+					DeleteObjectResponse resp = await s3.DeleteObjectAsync(delete);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during deleting a folder: {e.Message}");
+				}
+			}
+			await DisplayObjects(s3, "Folder Deleted");
+
+			bucket = await FirstBucket(s3);
+			if (bucket != null) {
+				Console.ForegroundColor = ConsoleColor.DarkYellow;
+				Console.WriteLine($"-- Delete file [{sub + fileName}]");
+
+				DeleteObjectRequest delete = new DeleteObjectRequest {
+					BucketName = bucket.BucketName,
+					Key = sub + fileName
+				};
+
+				try {
+					DeleteObjectResponse resp = await s3.DeleteObjectAsync(delete);
+				}
+				catch (Exception e) {
+					Console.WriteLine($"Error during deleting a folder: {e.Message}");
+				}
+			}
+			await DisplayObjects(s3, "File Deleted");
 		}
 
 		private async Task<S3Bucket> FirstBucket(AmazonS3Client s3) {
